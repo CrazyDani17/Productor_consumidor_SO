@@ -1,7 +1,9 @@
-package Second_version;
+package Third_version;
 
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
+
 import java.util.Arrays;
 
 public class Productor extends Thread {
@@ -13,13 +15,15 @@ public class Productor extends Thread {
 	boolean infinito=false;
 	JProgressBar buffer_bar;
 	int buffer_size;
+	JTextArea mensajes;
 	
-	public Productor(char bf[], int i[], JLabel te, JProgressBar bf_b, JLabel act) {
+	public Productor(char bf[], int i[], JLabel te, JProgressBar bf_b, JLabel act, JTextArea m) {
 		this.buffer = bf;
 		this.indice = i;
 		this.tespera = te;
 		this.buffer_bar = bf_b;
 		this.action = act;
+		this.mensajes = m;
     }
 	public void run() {
 		char producto;
@@ -42,10 +46,12 @@ public class Productor extends Thread {
 					String ind = Long.toString(indice[0]);
 					action.setText(ind);
 					System.out.println("Productor a producido: " + producto + " Indice=" + indice[0]);
+					mensajes.append("Productor a producido: " + producto + " Indice=" + indice[0] +"\n");
 					try {
 						//está produciendo
 						sleep((int) (Math.random() * 2000));
 						System.out.println("Productor está trabajando");
+						mensajes.append("Productor está trabajando" +"\n");
 		            }
 					catch (InterruptedException e) {
 						System.out.println(e);
@@ -66,10 +72,12 @@ public class Productor extends Thread {
 					String ind = Long.toString(indice[0]);
 					action.setText(ind);
 					System.out.println("Productor a producido: " + producto + " Indice=" + indice[0]);
+					mensajes.append("Productor a producido: " + producto + " Indice=" + indice[0] +"\n");
 					try {
 						//está produciendo
 						sleep((int) (Math.random() * 2000));
 						System.out.println("Productor está trabajando");
+						mensajes.append("Productor está trabajando" +"\n");
 		            }
 					catch (InterruptedException e) {
 						System.out.println(e);
@@ -79,6 +87,7 @@ public class Productor extends Thread {
 					try {
 						//está esperando
 						System.out.println("Productor está esperando");
+						mensajes.append("Productor está esperando" +"\n");
 						long inicio = System.nanoTime();
 						sleep((int) (Math.random() * 2000));
 						long fin = System.nanoTime();

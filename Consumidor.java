@@ -1,7 +1,8 @@
-package Second_version;
+package Third_version;
 
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
 
 public class Consumidor extends Thread {
 	public char buffer[];
@@ -12,15 +13,17 @@ public class Consumidor extends Thread {
 	JProgressBar buffer_bar;
 	JLabel tespera;
 	JLabel action;
+	JTextArea mensajes;
 	//JLabel tejecucion;
 	
-	public Consumidor(char bf[],int i[], int n, JLabel te, JProgressBar bf_b, JLabel act) {
+	public Consumidor(char bf[],int i[], int n, JLabel te, JProgressBar bf_b, JLabel act, JTextArea m) {
 		this.buffer = bf;
 		this.indice = i;
 		this.number = n;
 		this.tespera = te;
 		this.buffer_bar = bf_b;
 		this.action = act;
+		this.mensajes = m;
     }
 	public void run(){
 		System.out.println("Consumidor "+number+" empezó");
@@ -28,9 +31,11 @@ public class Consumidor extends Thread {
 			if(indice[0]>0){
 				if(infinito!=true) {
 					System.out.println("Consumidor "+number+" a consumido: " + buffer[indice[0]] + " Indice=" + indice[0]);
+					mensajes.append("Consumidor "+number+" a consumido: " + buffer[indice[0]] + " Indice=" + indice[0] +"\n");
 				}
 				else {
 					System.out.println("Consumidor "+number+" a consumido: en el Indice=" + indice[0]);
+					mensajes.append("Consumidor "+number+" a consumido: en el Indice=" + indice[0] +"\n");
 				}
 				indice[0]--;
 				buffer_bar.setValue(indice[0]);
@@ -48,6 +53,7 @@ public class Consumidor extends Thread {
 				try {
 					//está esperando
 					System.out.println("Consumidor "+ number + " está esperando");
+					mensajes.append("Consumidor "+ number + " está esperando"+"\n");
 					long inicio = System.nanoTime();
 					sleep((int) (Math.random() * 2000));
 					long fin = System.nanoTime();

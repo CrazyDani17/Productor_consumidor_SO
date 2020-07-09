@@ -9,15 +9,17 @@ public class Productor extends Thread {
 	private int indice[];
 	private char letras [] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 	JLabel tespera;
+	JLabel action;
 	boolean infinito=false;
 	JProgressBar buffer_bar;
 	int buffer_size;
 	
-	public Productor(char bf[], int i[], JLabel te, JProgressBar bf_b) {
+	public Productor(char bf[], int i[], JLabel te, JProgressBar bf_b, JLabel act) {
 		this.buffer = bf;
 		this.indice = i;
 		this.tespera = te;
 		this.buffer_bar = bf_b;
+		this.action = act;
     }
 	public void run() {
 		char producto;
@@ -26,16 +28,19 @@ public class Productor extends Thread {
 			if(infinito) {
 				if(indice[0]<buffer_size) {
 					producto=letras[(int)(Math.random() * 26)];
-					buffer[indice[0]]=producto;
+					//buffer[indice[0]]=producto;
 					if(indice[0]<buffer_size-1) {
 						indice[0]++;
 					}
 					else {
 						buffer_size+=10;
 						buffer = Arrays.copyOf(buffer, buffer_size);
+						buffer_bar.setMaximum(buffer_size);
 						indice[0]++;
 					}
 					buffer_bar.setValue(indice[0]+1);
+					String ind = Long.toString(indice[0]);
+					action.setText(ind);
 					System.out.println("Productor a producido: " + producto + " Indice=" + indice[0]);
 					try {
 						//está produciendo
@@ -58,6 +63,8 @@ public class Productor extends Thread {
 						max=1;
 					}
 					buffer_bar.setValue(indice[0]+1);
+					String ind = Long.toString(indice[0]);
+					action.setText(ind);
 					System.out.println("Productor a producido: " + producto + " Indice=" + indice[0]);
 					try {
 						//está produciendo

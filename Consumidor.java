@@ -1,4 +1,4 @@
-package Third_version;
+package Fourth_version;
 
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -37,7 +37,9 @@ public class Consumidor extends Thread {
 					System.out.println("Consumidor "+number+" a consumido: en el Indice=" + indice[0]);
 					mensajes.append("Consumidor "+number+" a consumido: en el Indice=" + indice[0] +"\n");
 				}
-				indice[0]--;
+				if(indice[0]>0){
+					indice[0]--;
+				}
 				buffer_bar.setValue(indice[0]);
 				String ind = Long.toString(indice[0]);
 				action.setText(ind);
